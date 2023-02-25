@@ -24,8 +24,8 @@ git submodule update --init --recursive --remote
 
 # Enable xApp Onboarder support
 cd RIC-Deployment/
-git checkout e_rel_xapp_onboarder_support
-git submodule update --init --recursive --remote
+#git checkout e_rel_xapp_onboarder_support
+#git submodule update --init --recursive --remote
 
 # Install Kubernetes, Docker and Helm
 cd tools/k8s/bin/
