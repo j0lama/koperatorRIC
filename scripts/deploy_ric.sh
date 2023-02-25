@@ -7,9 +7,6 @@ fi
 
 BASE_DIR="/local"
 
-# Claim more space
-sudo /usr/local/etc/emulab/mkextrafs.pl /
-
 # Redirect output to log file
 exec >> ${BASE_DIR}/deploy.log
 exec 2>&1
