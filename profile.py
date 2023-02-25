@@ -42,6 +42,8 @@ rspec.addTour(tour)
 # Machine
 machine = rspec.RawPC("ric")
 machine.disk_image = 'urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD'
+bs = machine.Blockstore("bs", "/")
+bs.size = "50GB"
 machine.hardware_type = params.Hardware
 machine.addService(PG.Execute(shell="bash", command="/local/repository/scripts/deploy_ric.sh"))
 
