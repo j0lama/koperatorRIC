@@ -50,6 +50,9 @@ sed -i "s/localhost:5001/docker.io/g" ../RECIPE_EXAMPLE/PLATFORM/example_recipe_
 sed -i "114s/ric-plt-e2/j0lama\/koperator_e2term/" ../RECIPE_EXAMPLE/PLATFORM/example_recipe_oran_e_release_modified_e2.yaml # Name
 sed -i "s/5.5.0/latest/g" ../RECIPE_EXAMPLE/PLATFORM/example_recipe_oran_e_release_modified_e2.yaml # Tag
 
+# Patch influxDB PVC
+sed -i "s/8Gi/5Gi/g" ../ric-dep/helm/3rdparty/influxdb/values.yaml
+
 # Deploy RIC
 sudo ./deploy-ric-platform -f ../RECIPE_EXAMPLE/PLATFORM/example_recipe_oran_e_release_modified_e2.yaml
 
