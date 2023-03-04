@@ -24,8 +24,6 @@ git submodule update --init --recursive --remote
 
 # Enable xApp Onboarder support
 cd RIC-Deployment/
-#git checkout e_rel_xapp_onboarder_support
-#git submodule update --init --recursive --remote
 
 # Install Kubernetes, Docker and Helm
 cd tools/k8s/bin/
@@ -44,13 +42,13 @@ sudo helm install stable/nfs-server-provisioner --namespace ricinfra --name nfs-
 sudo kubectl patch storageclass nfs -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 sudo apt install -y nfs-common
 
-# Patch RIC yaml file to include our e2term container
-cd $BASE_DIR/oaic/RIC-Deployment/bin/
-sed -i "s/localhost:5001/docker.io/g" ../RECIPE_EXAMPLE/PLATFORM/example_recipe_oran_e_release_modified_e2.yaml # Registry
-sed -i "114s/ric-plt-e2/j0lama\/koperator_e2term/" ../RECIPE_EXAMPLE/PLATFORM/example_recipe_oran_e_release_modified_e2.yaml # Name
-sed -i "s/5.5.0/latest/g" ../RECIPE_EXAMPLE/PLATFORM/example_recipe_oran_e_release_modified_e2.yaml # Tag
+# Build local Docker image of the e2term
+cd $BASE_DIR/oaic/ric-plt-e2/RIC-E2-TERMINATION/
+sudo docker build -f Dockerfile -t localhost:5001/ric-plt-e2:5.5.0 .
+sudo docker push localhost:5001/ric-plt-e2:5.5.0
 
 # Patch influxDB PVC
+cd $BASE_DIR/oaic/RIC-Deployment/bin/
 sed -i "s/8Gi/5Gi/g" ../ric-dep/helm/3rdparty/influxdb/values.yaml
 
 # Deploy RIC
