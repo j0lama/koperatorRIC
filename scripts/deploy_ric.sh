@@ -54,6 +54,9 @@ sed -i "s/8Gi/5Gi/g" ../ric-dep/helm/3rdparty/influxdb/values.yaml
 # Deploy RIC
 sudo ./deploy-ric-platform -f ../RECIPE_EXAMPLE/PLATFORM/example_recipe_oran_e_release_modified_e2.yaml
 
+# Delete unused docker images (to free space for the influxDB PVC)
+sudo docker image prune -a
+
 
 echo "Installation completed"
 date
